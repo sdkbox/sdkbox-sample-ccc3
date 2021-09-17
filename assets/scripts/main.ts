@@ -21,6 +21,8 @@ export class Main extends Component {
     // }
 
     onButtonInit() {
+        if (!this.checkSDKBox()) { return; }
+
         console.log(`SDKBox TS onButtonInit`);
         try {
             sdkbox.firebase.Analytics.init();
@@ -31,8 +33,20 @@ export class Main extends Component {
     }
 
     onButtonStart() {
+        if (!this.checkSDKBox()) { return; }
         console.log(`SDKBox TS onButtonStart`);
     }
+
+    checkSDKBox(): boolean {
+        if ('undefined' == typeof sdkbox) {
+            console.log("Can't detect sdkbox");
+            return false;
+        }
+
+        return true;
+    }
+
+    
 
 }
 
