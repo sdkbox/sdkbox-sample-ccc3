@@ -1,0 +1,30 @@
+{
+    "firebase": {
+        "engine": "3", 
+        "name": "firebase", 
+        "args": {}, 
+        "version": [
+            2, 
+            7, 
+            5, 
+            0
+        ], 
+        "result": "ok", 
+        "message": "success", 
+        "constants": {}
+    }, 
+    "iap": {
+        "engine": "3", 
+        "name": "iap", 
+        "args": {}, 
+        "version": [
+            2, 
+            7, 
+            6, 
+            2
+        ], 
+        "result": "ok", 
+        "message": "success", 
+        "constants": {}
+    }
+}

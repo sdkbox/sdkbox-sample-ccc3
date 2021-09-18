@@ -23,13 +23,7 @@ export class Main extends Component {
     onButtonInit() {
         if (!this.checkSDKBox()) { return; }
 
-        console.log(`SDKBox TS onButtonInit`);
-        try {
-            sdkbox.firebase.Analytics.init();
-        } catch (error) {
-            console.error(error.toString());
-            console.log(error.stack);
-        }
+        this.initIAP();
     }
 
     onButtonStart() {
@@ -46,7 +40,15 @@ export class Main extends Component {
         return true;
     }
 
-    
+    initIAP() {
+        console.log(`to init IAP`);
+        try {
+            sdkbox.IAP.init();
+        } catch (error) {
+            console.error(error.toString());
+            console.log(error.stack);
+        }
+    }
 
 }
 
