@@ -1,2 +1,2 @@
-# SDKBox Sample For Creator 3.1
+# SDKBox Sample For Creator 3
 
