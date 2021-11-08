@@ -1,4 +1,7 @@
 
+build/android/assets/
+build/ios/assets/
+
 extensions/
 
 #///////////////////////////
@@ -7,9 +10,7 @@ extensions/
 library/
 temp/
 local/
-build/
 profiles/
-native
 #//////////////////////////
 # NPM
 #//////////////////////////
