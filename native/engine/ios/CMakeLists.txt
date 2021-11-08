@@ -26,6 +26,11 @@ list(APPEND PROJ_COMMON_SOURCES
 )
 # source-sdkbox
 list(APPEND PROJ_COMMON_SOURCES ${CMAKE_CURRENT_LIST_DIR}/../common/Classes/SDKBoxJSHelper.cpp)
+# source-AdMob
+list(APPEND PROJ_COMMON_SOURCES
+    ${CMAKE_CURRENT_LIST_DIR}/../common/Classes/PluginAdMobJS.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/../common/Classes/PluginAdMobJSHelper.cpp
+)
 list(APPEND PROJ_COMMON_SOURCES ${CMAKE_CURRENT_LIST_DIR}/../common/Classes/jsb_module_register.cpp)
 
 set(UI_RESOURCES
@@ -88,6 +93,36 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework PluginIAP")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework Security")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework StoreKit")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework SystemConfiguration")
+# link-flag-PluginAdMob
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework PluginAdMob")
+LinkXCFramework("${CMAKE_CURRENT_LIST_DIR}/GoogleAppMeasurement.xcframework" ios-arm64_i386_x86_64-simulator ${LIB_NAME})
+LinkXCFramework("${CMAKE_CURRENT_LIST_DIR}/GoogleMobileAds.xcframework" ios-arm64_x86_64-simulator ${LIB_NAME})
+LinkXCFramework("${CMAKE_CURRENT_LIST_DIR}/GoogleUtilities.xcframework" ios-arm64_i386_x86_64-simulator ${LIB_NAME})
+LinkXCFramework("${CMAKE_CURRENT_LIST_DIR}/PromisesObjC.xcframework" ios-arm64_i386_x86_64-simulator ${LIB_NAME})
+LinkXCFramework("${CMAKE_CURRENT_LIST_DIR}/nanopb.xcframework" ios-arm64_i386_x86_64-simulator ${LIB_NAME})
+LinkXCFramework("${CMAKE_CURRENT_LIST_DIR}/UserMessagingPlatform.xcframework" ios-arm64_x86_64-simulator ${LIB_NAME})
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework CoreMotion")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework AdSupport")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework AudioToolbox")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework AVFoundation")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework CoreGraphics")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework CoreMedia")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework CoreTelephony")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework EventKit")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework EventKitUI")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework MessageUI")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework StoreKit")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework SystemConfiguration")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework GameController")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework MediaPlayer")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework GLKit")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework CoreVideo")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework CoreBluetooth")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework SafariServices")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework MobileCoreServices")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework CFNetwork")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework WebKit")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework JavaScriptCore")
 set_target_properties(${LIB_NAME} PROPERTIES 
     MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_LIST_DIR}/Info.plist"
     MACOSX_BUNDLE 1

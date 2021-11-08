@@ -1,4 +1,18 @@
 {
+    "admob": {
+        "engine": "3", 
+        "name": "admob", 
+        "args": {}, 
+        "version": [
+            2, 
+            7, 
+            7, 
+            0
+        ], 
+        "result": "ok", 
+        "message": "success", 
+        "constants": {}
+    }, 
     "firebase": {
         "engine": "3", 
         "name": "firebase", 

@@ -11,6 +11,9 @@ export class Main extends Component {
     // @property
     // serializableDummy = 0;
 
+    @property(Label)
+    logArea: Label | null = null;
+
     start () {
         // [3]
         console.log(`SDKBox TS start`);
@@ -24,6 +27,7 @@ export class Main extends Component {
         if (!this.checkSDKBox()) { return; }
 
         this.initIAP();
+        this.initPluginAdMob();
     }
 
     onButtonStart() {
@@ -50,15 +54,58 @@ export class Main extends Component {
         }
     }
 
+    initPluginAdMob() {
+        if ('undefined' == typeof sdkbox) {
+            this.output('sdkbox is undefined');
+            return;
+        }
+
+        if ('undefined' == typeof sdkbox.PluginAdMob) {
+            this.output('sdkbox.PluginAdMob is undefined');
+            return;
+        }
+
+        const self = this;
+        sdkbox.PluginAdMob.setListener({
+            adViewDidReceiveAd: function(name: string) {
+                self.output('adViewDidReceiveAd:'+name);
+            },
+            adViewDidFailToReceiveAdWithError: function(name, msg) {
+                self.output('adViewDidFailToReceiveAdWithError:'+name+':'+msg);
+            },
+            adViewWillPresentScreen: function(name) {
+                self.output('adViewWillPresentScreen:'+name);
+            },
+            adViewDidDismissScreen: function(name) {
+                self.output('adViewDidDismissScreen:'+name);
+            },
+            adViewWillDismissScreen: function(name) {
+                self.output('adViewWillDismissScreen:'+name);
+            },
+            adViewWillLeaveApplication: function(name) {
+                self.output('adViewWillLeaveApplication:'+name);
+            },
+            reward: function(name, currency, amount) {
+                self.output('reward:'+name+':'+currency+':'+amount);
+            }
+        });
+        sdkbox.PluginAdMob.init();
+    }
+
+    output(s: string) {
+        console.log(s);
+
+        if (null == this.logArea) {
+            return;
+        }
+
+        let lines = this.logArea.string.split('\n');
+        while (lines.length > 5) {
+            lines.shift();
+        }
+        lines.push(s);
+        this.logArea.string = lines.join('\n');
+    }
+
 }
 
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */

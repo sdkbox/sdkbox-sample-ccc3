@@ -36,6 +36,11 @@ ${CMAKE_CURRENT_LIST_DIR}/../common/Classes/PluginIAPJSHelper.cpp
 )
 # source-sdkbox
 list(APPEND PROJ_SOURCES ${CMAKE_CURRENT_LIST_DIR}/../common/Classes/SDKBoxJSHelper.cpp)
+# source-AdMob
+list(APPEND PROJ_SOURCES
+${CMAKE_CURRENT_LIST_DIR}/../common/Classes/PluginAdMobJS.cpp
+${CMAKE_CURRENT_LIST_DIR}/../common/Classes/PluginAdMobJSHelper.cpp
+)
 list(APPEND PROJ_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/../common/Classes/jsb_module_register.cpp
 )
@@ -60,6 +65,10 @@ target_link_libraries(${LIB_NAME} ext_PluginIAP)
 add_definitions(-DSDKBOX_ENABLED)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/app/jni/sdkbox/)
 target_link_libraries(${LIB_NAME} ext_sdkbox)
+# PluginAdMob
+add_definitions(-DSDKBOX_ENABLED)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/app/jni/PluginAdMob/)
+target_link_libraries(${LIB_NAME} ext_PluginAdMob)
 target_link_libraries(${LIB_NAME}
     "-Wl,--whole-archive" cocos2d_jni "-Wl,--no-whole-archive"
     cocos2d

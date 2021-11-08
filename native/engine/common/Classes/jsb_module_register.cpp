@@ -101,6 +101,9 @@
 // js-binding-IAP
 #include "PluginIAPJS.hpp"
 #include "PluginIAPJSHelper.h"
+// js-binding-AdMob
+#include "PluginAdMobJS.hpp"
+#include "PluginAdMobJSHelper.h"
 bool jsb_register_all_modules() {
     se::ScriptEngine *se = se::ScriptEngine::getInstance();
 
@@ -182,6 +185,8 @@ bool jsb_register_all_modules() {
 #endif
 se->addRegisterCallback(register_all_PluginIAPJS);
 se->addRegisterCallback(register_all_PluginIAPJS_helper);
+se->addRegisterCallback(register_all_PluginAdMobJS);
+se->addRegisterCallback(register_all_PluginAdMobJS_helper);
     se->addAfterCleanupHook([]() {
         cc::PoolManager::getInstance()->getCurrentPool()->clear();
         JSBClassType::cleanup();

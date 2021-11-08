@@ -97,3 +97,5 @@ dependencies {
 }
 
 dependencies { implementation 'com.android.billingclient:billing:3.0.2' }
+
+dependencies { implementation 'com.google.android.gms:play-services-ads:20.1.0' }

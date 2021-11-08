@@ -1,48 +1,55 @@
 {
     "android": {
-        "iap": {
-            "items": {
-                "remove_ads": {
-                    "type": "non_consumable",
-                    "id": "com.cocos2dx.non1"
+        "AdMob": {
+            "test": false,
+            "tag_for_child_directed_treatment": 1,
+            "ads": {
+                "banner": {
+                    "width": 300,
+                    "height": 50,
+                    "type": "banner",
+                    "id": "ca-app-pub-3940256099942544/6300978111", 
+                    "alignment": "bottom"
                 },
-                "coin_package": {
-                    "id": "com.cocos2dx.plugintest2"
+                "interstitial": {
+                    "type": "interstitial", 
+                    "id": "ca-app-pub-3940256099942544/1033173712"
                 },
-                "double_coin": {
-                    "type": "non_consumable",
-                    "id": "com.cocos2dx.non2"
+                "reward": {
+                    "type": "rewarded_video",
+                    "id": "ca-app-pub-3940256099942544/5224354917"
                 },
-                "subs": {
-                    "type": "subs",
-                    "id": "subscription1"
-                },
-                "coin_package2": {
-                    "id": "com.cocos2dx.plugintest3"
+                "appopen":{
+                    "id":"ca-app-pub-3940256099942544/1033173712",
+                    "type":"appopen"
                 }
-
-            },
-            "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAq7eIGu7dRcBRBSC05cYvxjBMd7cqq9w6++1er+cqO2tyWPtWB4vuTkliq4k/Fkylx5UMfptdOYOW8ENgQyVucs/NyuOAGmve4j5JFhLPcLa6LjO2HUSY6zk04DRR9Zw7YPET4WAezZTz8jYMGhPG08HYltVj8cmSpSFWd1nI0pGOJoLQIMkIkXplgnPQRbMpuOu70vnQQBS1RFcoFT7OjaV8U0cfJzMoS1TMkGqaJKks2T+qOBNTtkXzge92EnvYIkhpCfN98dj6aQmETNp5yj5Fa+jcbAVF8dy5xymJwioL89XQKfKkGR+P6ESMoBEPfIZYIlMU8EUwmC+UKGLujQIDAQAB"
+            }
         }
-    },
+    }, 
     "ios": {
-        "iap": {
-            "items": {
-                "remove_ads": {
-                    "type": "non_consumable",
-                    "id": "com.cocos2dx.non1"
+        "AdMob": {
+            "test": false, 
+            "safearea": true, 
+            "ads": {
+                "banner": {
+                    "width": 300,
+                    "height": 50,
+                    "type": "banner",
+                    "id": "ca-app-pub-3940256099942544/2934735716", 
+                    "alignment": "bottom"
                 },
-                "coin_package": {
-                    "id": "com.cocos2dx.plugintest2"
+                "interstitial": {
+                    "type": "interstitial", 
+                    "id": "ca-app-pub-3940256099942544/4411468910"
                 },
-                "double_coin": {
-                    "type": "non_consumable",
-                    "id": "com.cocos2dx.non2"
+                "reward": {
+                    "type": "rewarded_video",
+                    "id": "ca-app-pub-3940256099942544/1712485313"
                 },
-                "coin_package2": {
-                    "id": "com.cocos2dx.plugintest3"
+                "appopen":{
+                    "type": "appopen",
+                    "id": "ca-app-pub-3940256099942544/5662855259"
                 }
-
             }
         }
     }
