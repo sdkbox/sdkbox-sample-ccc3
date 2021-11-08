@@ -1,5 +1,5 @@
 
-import { _decorator, Component, Node } from 'cc';
+import { _decorator, Component, Label } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('Main')
@@ -46,12 +46,52 @@ export class Main extends Component {
 
     initIAP() {
         console.log(`to init IAP`);
-        try {
-            sdkbox.IAP.init();
-        } catch (error) {
-            console.error(error.toString());
-            console.log(error.stack);
-        }
+
+        const self = this;
+        sdkbox.IAP.setListener({
+            onSuccess : function (product) {
+                //Purchase success
+                self.output("Purchase successful: " + product.name);
+            },
+            onFailure : function (product, msg) {
+                //Purchase failed
+                //msg is the error message
+                self.output("Purchase failed: " + product.name + " error: " + msg);
+            },
+            onCanceled : function (product) {
+                //Purchase was canceled by user
+                self.output("Purchase canceled: " + product.name);
+            },
+            onRestored : function (product) {
+                //Purchase restored
+                self.output("Restored: " + product.name);
+            },
+            onProductRequestSuccess : function (products) {
+                //Returns you the data for all the iap products
+                //You can get each item using following method
+            },
+            onProductRequestFailure : function (msg) {
+                //When product refresh request fails.
+                self.output("Failed to get products");
+            },
+            onShouldAddStorePayment: function(productId) {
+                self.output("onShouldAddStorePayment:" + productId);
+                return true;
+            },
+            onFetchStorePromotionOrder : function (productIds, error) {
+                self.output("onFetchStorePromotionOrder:" + " " + " e:" + error);
+            },
+            onFetchStorePromotionVisibility : function (productId, visibility, error) {
+                self.output("onFetchStorePromotionVisibility:" + productId + " v:" + visibility + " e:" + error);
+            },
+            onUpdateStorePromotionOrder : function (error) {
+                self.output("onUpdateStorePromotionOrder:" + error);
+            },
+            onUpdateStorePromotionVisibility : function (error) {
+                self.output("onUpdateStorePromotionVisibility:" + error);
+            },
+        });
+        sdkbox.IAP.init();
     }
 
     initPluginAdMob() {
