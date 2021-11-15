@@ -1,6 +1,7 @@
 
 build/android/assets/
-build/ios/assets/
+build/ios/
+!build/ios/proj/SDKBoxSample.xcodeproj/
 
 extensions/
 
