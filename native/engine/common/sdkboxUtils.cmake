@@ -1,0 +1,10 @@
+
+macro(LinkXCFramework xcfwPath arch targetName)
+get_filename_component(fwName ${xcfwPath} NAME_WE)
+set(fwLib ${xcfwPath}/${arch}/${fwName}.framework/${fwName})
+if(EXISTS ${fwLib})
+    TARGET_LINK_LIBRARIES(${targetName} "${fwLib}")
+else()
+    MESSAGE(STATUS "${xcfwPath} is not found")
+endif()
+endmacro(LinkXCFramework)

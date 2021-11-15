@@ -29,11 +29,20 @@ if(EXISTS ${RES_DIR}/proj/service.cmake)
 endif()
 # --------------  END ----------------
 
+# source-Facebook
+list(APPEND PROJ_SOURCES
+${CMAKE_CURRENT_LIST_DIR}/../common/Classes/PluginFacebookJS.cpp
+${CMAKE_CURRENT_LIST_DIR}/../common/Classes/PluginFacebookJSHelper.cpp
+)
+# source-sdkbox
+list(APPEND PROJ_SOURCES ${CMAKE_CURRENT_LIST_DIR}/../common/Classes/SDKBoxJSHelper.cpp)
 list(APPEND PROJ_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/../common/Classes/jsb_module_register.cpp
 )
 
 add_library(${LIB_NAME} SHARED ${PROJ_SOURCES})
+# sdkbox-config
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/../common/assets/sdkbox_config.json" DESTINATION ${RES_DIR}/assets/)
 
 
 # -------------- SRART ---------------
@@ -43,6 +52,14 @@ if(COMMAND service_insert_library)
 endif()
 # --------------  END ----------------
 
+# PluginFacebook
+add_definitions(-DSDKBOX_ENABLED)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/app/jni/PluginFacebook/)
+target_link_libraries(${LIB_NAME} ext_PluginFacebook)
+# lib-sdkbox
+add_definitions(-DSDKBOX_ENABLED)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/app/jni/sdkbox/)
+target_link_libraries(${LIB_NAME} ext_sdkbox)
 target_link_libraries(${LIB_NAME}
     "-Wl,--whole-archive" cocos2d_jni "-Wl,--no-whole-archive"
     cocos2d

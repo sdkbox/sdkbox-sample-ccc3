@@ -25,6 +25,7 @@
  ****************************************************************************/
 #include "AppDelegate.h"
 #import "ViewController.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #include "platform/ios/View.h"
 
 #include "Game.h"
@@ -51,6 +52,9 @@ Game *      game = nullptr;
     _viewController.view.multipleTouchEnabled = true;
     [self.window setRootViewController:_viewController];
 
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+                                 didFinishLaunchingWithOptions:launchOptions];
+
     // cocos2d application instance
     game = new Game(bounds.size.width, bounds.size.height);
     game->init();
@@ -75,6 +79,7 @@ Game *      game = nullptr;
      */
     [[SDKWrapper shared] applicationDidBecomeActive:application];
     game->onResume();
+    [FBSDKAppEvents activateApp];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -97,6 +102,30 @@ Game *      game = nullptr;
     [[SDKWrapper shared] applicationWillTerminate:application];
     delete game;
     game = nullptr;
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    
+    BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                                  openURL:url
+                                                        sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+                                                               annotation:options[UIApplicationOpenURLOptionsAnnotationKey]
+                    ];
+    // Add any custom logic here.
+    return handled;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    
+    BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                                  openURL:url
+                                                        sourceApplication:sourceApplication
+                                                               annotation:annotation
+                    ];
+    // Add any custom logic here.
+    return handled;
 }
 
 #pragma mark -

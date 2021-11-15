@@ -4,6 +4,7 @@ set(APP_NAME "SDKBoxSample"  CACHE STRING "Project Name")
 project(${APP_NAME} CXX)
 
 include(${CMAKE_CURRENT_LIST_DIR}/../common/CMakeLists.txt)
+include(${CMAKE_CURRENT_LIST_DIR}/../common/sdkboxUtils.cmake)
 
 set(LIB_NAME ${APP_NAME}-mobile)
 
@@ -18,6 +19,13 @@ if(NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/../common/Classes/jsb_module_register.cp
     file(COPY "${COCOS_X_PATH}/cocos/bindings/manual/jsb_module_register.cpp"
         DESTINATION ${CMAKE_CURRENT_LIST_DIR}/../common/Classes/)
 endif()
+# source-Facebook
+list(APPEND PROJ_COMMON_SOURCES
+    ${CMAKE_CURRENT_LIST_DIR}/../common/Classes/PluginFacebookJS.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/../common/Classes/PluginFacebookJSHelper.cpp
+)
+# source-sdkbox
+list(APPEND PROJ_COMMON_SOURCES ${CMAKE_CURRENT_LIST_DIR}/../common/Classes/SDKBoxJSHelper.cpp)
 list(APPEND PROJ_COMMON_SOURCES ${CMAKE_CURRENT_LIST_DIR}/../common/Classes/jsb_module_register.cpp)
 
 set(UI_RESOURCES
@@ -47,6 +55,8 @@ list(APPEND PROJ_SOURCES
     ${UI_RESOURCES}
 )
 
+# sdkbox-config
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/../common/assets/sdkbox_config.json" DESTINATION ${RES_DIR}/assets/)
 include_resources(${RES_DIR}/assets)
 
 add_executable(${LIB_NAME} ${PROJ_SOURCES} ${ASSET_FILES} ${PROJ_COMMON_SOURCES})
@@ -71,6 +81,30 @@ target_include_directories(${LIB_NAME} PRIVATE
 set(EXECUTABLE_NAME ${LIB_NAME}) # referenced in Info.plist
 set(PRODUCT_NAME ${APP_NAME})
 
+# link-flag-sdkbox
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework sdkbox")
+# link-flag-PluginFacebook
+
+LinkXCFramework("${CMAKE_CURRENT_LIST_DIR}/FBAEMKit.xcframework" ios-arm64_i386_x86_64-simulator ${LIB_NAME})
+LinkXCFramework("${CMAKE_CURRENT_LIST_DIR}/FBSDKCoreKit.xcframework" ios-arm64_i386_x86_64-simulator ${LIB_NAME})
+LinkXCFramework("${CMAKE_CURRENT_LIST_DIR}/FBSDKCoreKit_Basics.xcframework" ios-arm64_i386_x86_64-simulator ${LIB_NAME})
+LinkXCFramework("${CMAKE_CURRENT_LIST_DIR}/FBSDKGamingServicesKit.xcframework" ios-arm64_i386_x86_64-simulator ${LIB_NAME})
+LinkXCFramework("${CMAKE_CURRENT_LIST_DIR}/FBSDKLoginKit.xcframework" ios-arm64_i386_x86_64-simulator ${LIB_NAME})
+LinkXCFramework("${CMAKE_CURRENT_LIST_DIR}/FBSDKShareKit.xcframework" ios-arm64_i386_x86_64-simulator ${LIB_NAME})
+LinkXCFramework("${CMAKE_CURRENT_LIST_DIR}/FacebookGamingServices.xcframework" ios-arm64_i386_x86_64-simulator ${LIB_NAME})
+
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework PluginFacebook")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework Security")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework AdSupport")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework SystemConfiguration")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework MediaPlayer")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework GameController")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework WebKit")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework Accelerate")
+
+# /Users/hugo/Documents/work/sdkbox/sdkbox-sample/sdkbox-sample-ccc3/native/engine/ios/FBSDKCoreKit.xcframework/ios-arm64_i386_x86_64-simulator
+
+
 set_target_properties(${LIB_NAME} PROPERTIES 
     MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_LIST_DIR}/Info.plist"
     MACOSX_BUNDLE 1
@@ -84,6 +118,7 @@ set_target_properties(${LIB_NAME} PROPERTIES
     XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET ${TARGET_IOS_VERSION}
     XCODE_ATTRIBUTE_ENABLE_BITCODE NO
     XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH YES
+    XCODE_ATTRIBUTE_FRAMEWORK_SEARCH_PATHS "\"${CMAKE_CURRENT_LIST_DIR}\""
     IOS_INSTALL_COMBINED YES
     XCODE_ATTRIBUTE_SKIP_INSTALL NO
     XCODE_ATTRIBUTE_INSTALL_PATH "$(LOCAL_APPS_DIR)"

@@ -98,6 +98,9 @@
     #include "cocos/bindings/auto/jsb_physics_auto.h"
 #endif
 
+// js-binding-Facebook
+#include "PluginFacebookJS.hpp"
+#include "PluginFacebookJSHelper.h"
 bool jsb_register_all_modules() {
     se::ScriptEngine *se = se::ScriptEngine::getInstance();
 
@@ -177,6 +180,8 @@ bool jsb_register_all_modules() {
 #if USE_SOCKET && USE_WEBSOCKET_SERVER
     se->addRegisterCallback(register_all_websocket_server);
 #endif
+se->addRegisterCallback(register_all_PluginFacebookJS);
+se->addRegisterCallback(register_all_PluginFacebookJS_helper);
     se->addAfterCleanupHook([]() {
         cc::PoolManager::getInstance()->getCurrentPool()->clear();
         JSBClassType::cleanup();

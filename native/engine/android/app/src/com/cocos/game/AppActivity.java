@@ -31,7 +31,7 @@ import android.content.res.Configuration;
 import com.cocos.service.SDKWrapper;
 import com.cocos.lib.CocosActivity;
 
-public class AppActivity extends CocosActivity {
+public class AppActivity extends com.sdkbox.plugin.SDKBoxCocosActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
